@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import { signUp, signIn } from '../../store/actions/user_actions';
 import { bindActionCreators } from 'redux';
 
+import { setTokens } from '../../utils/misc';
+
 class AuthForm extends Component {
 
     state = {
@@ -97,6 +99,17 @@ class AuthForm extends Component {
         })
     }
 
+    manageAccess = () => {
+        if(!this.props.User.auth.uid) {
+            this.setState({hasErrors: true});
+        } else {
+            setTokens(this.props.User.auth, () => {
+                this.setState({hasErrors: false});
+                this.props.goNext();
+            });
+        }
+    }
+
     submitUser = () => {
         let isFormValid  = true;
         let formToSubmit = {};
@@ -119,9 +132,13 @@ class AuthForm extends Component {
 
         if(isFormValid) {
             if(this.state.type == 'Login') {
-                this.props.signIn(formToSubmit)
+                this.props.signIn(formToSubmit).then(() => {
+                    this.manageAccess()
+                })
             }else {
-                this.props.signUp(formToSubmit)
+                this.props.signUp(formToSubmit).then(() => {
+                    this.manageAccess()
+                })
             }
 
         } else {
@@ -217,7 +234,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-    console.log(state)
+    console.log(JSON.stringify(state, null, 2));
     return {
         User: state.User
     }
