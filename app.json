@@ -1,0 +1,12 @@
+{
+  "name": "ReactNative_NBA_App",
+  "displayName": "ReactNative_NBA_App",
+  "expo": {
+    "name": "ReactNative_NBA_App",
+    "slug": "ReactNative_NBA_App",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
