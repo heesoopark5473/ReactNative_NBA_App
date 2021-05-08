@@ -6,7 +6,6 @@ export const SIGNUP         = `https://identitytoolkit.googleapis.com/v1/account
 export const SIGNIN         = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${APIKEY}`;
 export const REFRESH        = `https://securetoken.googleapis.com/v1/token?key=${APIKEY}`;
 
-
 export const getTokens = (cb) => {
     AsyncStorage.multiGet([
         '@ReactNative_NBA_App@token',

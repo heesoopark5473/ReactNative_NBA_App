@@ -22,12 +22,19 @@ class AuthComponent extends Component {
 
     componentDidMount() {
         getTokens((value) => {
-
             // console.log(JSON.stringify(value, null, 2));
             if (value[0][1] === null) {
                 this.setState({ loading: false })
             } else {
-                this.props.autoSignIn()
+                this.props.autoSignIn(value[1][1]).then(() => {
+                    if(!this.props.User.auth.token) {
+                        this.setState({loading: false})
+                    } else {
+                        setTokens(this.props.User.auth, () => {
+                            this.goNext();
+                        })
+                    }
+                })
             }
         })
     }
