@@ -11,6 +11,8 @@ import {
 import { connect } from 'react-redux';
 import { getNews } from '../../store/actions/news_actions';
 
+import Moment from 'moment';
+
 class NewsComponent extends Component {
 
     componentDidMount() {
@@ -21,14 +23,26 @@ class NewsComponent extends Component {
         news.articles ?
             news.articles.map((item,i) => (
                 <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Article', {
+                        ...item
+                    })}
                     key={i}
                 >
                     <View style={styles.cardContainer}>
-                        <Image
-                            style={{height:150, justifyContent:'space-around'}}
-                            source={{uri:`${item.image}`}}
-                            resizeMode='cover'
-                        />
+                        <View>
+                            <Image
+                                style={{height:150, justifyContent:'space-around'}}
+                                source={{uri:`${item.image}`}}
+                                resizeMode='cover'
+                            />
+                        </View>
+                        <View style={styles.contentCard}>
+                            <Text style={styles.titleCard}>{item.title}</Text>
+                            <View style={styles.bottomCard}>
+                                <Text style={styles.bottomCardTeam}>{item.team} - </Text>
+                                <Text style={styles.bottomCardText}>Posted at {Moment(item.date).format('d MMMM')}</Text>
+                            </View>
+                        </View>
                     </View>
                 </TouchableOpacity>
             ))
@@ -54,7 +68,32 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         elevation: 1,
         borderRadius: 2,
+    },
+    contentCard: {
+        borderWidth: 1,
+        borderColor: '#dddddd'
+    },
+    titleCard: {
+        color: '#232323',
+        fontSize: 16,
+        padding: 10
+    },
+    bottomCard: {
+        flex: 1,
+        flexDirection: 'row',
+        borderTopWidth: 1,
+        borderTopColor: '#e6e6e6',
+        padding: 10
+    },
+    bottomCardTeam: {
+        color: '#828282',
+        fontSize: 12
+    },
+    bottomCardText: {
+        color: '#828282',
+        fontSize: 12
     }
+
 });
 
 function mapStateToProps(state) {
