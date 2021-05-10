@@ -17,12 +17,13 @@ class AuthComponent extends Component {
     }
 
     goNext = () => {
+        // console.log(JSON.stringify(this.props, null, 2));
         this.props.navigation.navigate('App')
     }
 
     componentDidMount() {
+        // console.log(JSON.stringify(this.props,null,2));
         getTokens((value) => {
-            // console.log(JSON.stringify(value, null, 2));
             if (value[0][1] === null) {
                 this.setState({ loading: false })
             } else {
@@ -40,6 +41,7 @@ class AuthComponent extends Component {
     }
 
     render() {
+        // console.log(JSON.stringify(this.props,null,2));
         if (this.state.loading) {
            return (
                <View style={styles.loading}>

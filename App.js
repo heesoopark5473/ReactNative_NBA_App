@@ -18,16 +18,28 @@ const createStoreWithMiddleware = createStore(reducers, composeEnhancers(
 ))
 
 
-
 import RootNavigator from './app/routes';
 
 class App extends Component {
+
+  state = {
+    RouteAuth: true
+  }
+
+  checkLogin = () => (
+    this.state.RouteAuth ? 
+      <RootNavigator/>
+    :
+      <Text>Here</Text>
+  )
+
   render() {
     return (
       <Provider store={createStoreWithMiddleware}>
         <NavigationContainer>
           <View style={styles.container}>
             <RootNavigator/>
+            {/* {this.checkLogin()} */}
             <StatusBar style="auto" />
           </View>
         </NavigationContainer>

@@ -19,8 +19,6 @@ const input = (props) => {
     return template;
 }
 
-export default input;
-
 const styles = StyleSheet.create({
     input: {
         width: '100%',
@@ -31,3 +29,5 @@ const styles = StyleSheet.create({
         marginTop: 10
     }
 })
+
+export default input;
