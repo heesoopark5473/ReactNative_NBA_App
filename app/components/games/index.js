@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { 
+    StyleSheet, 
+    View, 
+    Text,
+    Image,
+    ScrollView,
+    TouchableOpacity
+} from 'react-native';
+
+import { connect } from 'react-redux';
+import { getGames } from '../../store/actions/games_actions';
+import Moment from 'moment';
+
 
 class GameComponent extends Component {
 
+    componentDidMount() {
+        this.props.dispatch(getGames());
+    }
+
     render() {
         return (
-            <View style={styles.container}>
+            <View>
                 <Text>Hello I am the Game</Text>
             </View>
         );
@@ -13,12 +29,14 @@ class GameComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    }
+
 });
 
-export default GameComponent;
+function mapStateToProps(state) {
+    console.log(JSON.stringify(state,null,2));
+    return {
+        Games: state.Games
+    }
+}
+
+export default connect(mapStateToProps)(GameComponent);
